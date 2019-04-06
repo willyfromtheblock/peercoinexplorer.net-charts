@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
+import GitHubButton from "react-github-btn";
 import Loader from "react-loader-spinner";
 import http from "./services/httpService";
 import Highcharts from "highcharts/highstock";
@@ -334,9 +335,18 @@ class App extends Component {
                     />
                   </div>
                 )}
-                <p style={{ marginTop: "0.5vw", marginBottom: "0" }}>
+                <p style={{ marginTop: "10px", marginBottom: "10px" }}>
                   <small>Data is updated every 24 hours.</small>
                 </p>
+                <GitHubButton
+                  href="https://github.com/bananenwilly/peercoinexplorer.net-charts/issues"
+                  data-icon="octicon-issue-opened"
+                  data-size="large"
+                  data-show-count="true"
+                  aria-label="Issue bananenwilly/peercoinexplorer.net-charts on GitHub"
+                >
+                  Issue
+                </GitHubButton>
               </div>
             </section>
           </main>
