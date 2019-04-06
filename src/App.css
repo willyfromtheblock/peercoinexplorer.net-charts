@@ -1,0 +1,60 @@
+body,
+html {
+  height: 100%;
+  background-color: #e9ecef !important;
+  font-family: Roboto !important;
+}
+
+.navbar_ppc {
+  background-color: #333333;
+}
+
+.jumbotron {
+  margin-bottom: 0px !important;
+}
+
+.btn-secondary {
+  margin: 5px;
+  background-color: #333333 !important;
+  border-color: #333333 !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary.active {
+  background-color: #5a5a5a !important;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  bottom: 0px;
+}
+
+.loader {
+  position: fixed;
+  z-index: 999;
+  height: 100px;
+  width: 100px;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.logo {
+  width: 20vw;
+  height: 8vh;
+}
+
+@media screen and (max-width: 800px) {
+  .logo {
+    width: 90vw;
+    height: 10vh;
+  }
+  .donate_addr {
+    font-size: 0.79rem !important;
+  }
+}
