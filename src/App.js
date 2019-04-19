@@ -23,7 +23,8 @@ class App extends Component {
     rangeSelectedBuffer: 5,
     decimals: 2,
     extremes: { min: null, max: null },
-    selectedGroup: "default"
+    selectedGroup: "default",
+    selectedChart: ""
   };
 
   componentDidMount() {
@@ -128,6 +129,7 @@ class App extends Component {
 
     this.setState({
       ytitle,
+      selectedChart: name,
       chartTitle: label,
       decimals,
       initialLoad: true,
@@ -142,19 +144,23 @@ class App extends Component {
   };
 
   handleOptions = option => {
-    this.refs["optionsGroup"].scrollIntoView({
-      block: "end",
-      behavior: "smooth"
-    });
-    this.setState({ option });
+    const { rangeSelectedBuffer } = this.state;
+    this.setState({ option, rangeSelected: rangeSelectedBuffer }, () =>
+      this.refs["optionsGroup"].scrollIntoView({
+        block: "end",
+        behavior: "smooth"
+      })
+    );
   };
 
   handleGroup = selectedGroup => {
-    this.refs["optionsGroup"].scrollIntoView({
-      block: "end",
-      behavior: "smooth"
-    });
-    this.setState({ selectedGroup });
+    const { rangeSelectedBuffer } = this.state;
+    this.setState({ selectedGroup, rangeSelected: rangeSelectedBuffer }, () =>
+      this.refs["optionsGroup"].scrollIntoView({
+        block: "end",
+        behavior: "smooth"
+      })
+    );
   };
 
   showModal = () => {
@@ -184,7 +190,7 @@ class App extends Component {
   render() {
     const {
       chartTitle,
-      selected,
+      selectedChart,
       ytitle,
       option,
       didMount,
@@ -352,7 +358,7 @@ class App extends Component {
                 <h1 className="jumbotron-heading">Peercoin charts</h1>
                 <hr />
                 <ButtonGroup
-                  selected={selected}
+                  selected={selectedChart}
                   charts={charts}
                   raiseLoad={this.handleLoad}
                 />
