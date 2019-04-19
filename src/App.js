@@ -7,7 +7,7 @@ import Highcharts from "highcharts/highstock";
 import OptionsGroup from "./components/optionsGroup";
 import ButtonGroup from "./components/buttonGroup";
 import DonationModal from "./components/donationModal";
-import { charts, options } from "./components/config";
+import { charts, options, dataGroups } from "./components/config";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -22,7 +22,8 @@ class App extends Component {
     rangeSelected: 5,
     rangeSelectedBuffer: 5,
     decimals: 2,
-    extremes: { min: null, max: null }
+    extremes: { min: null, max: null },
+    selectedGroup: "default"
   };
 
   componentDidMount() {
@@ -40,12 +41,34 @@ class App extends Component {
       prevState.loading !== this.state.loading ||
       prevState.modalShow !== this.state.modalShow ||
       prevState.option !== this.state.option ||
+      prevState.selectedGroup !== this.state.selectedGroup ||
       prevState.rangeSelected !== this.state.rangeSelected
     ) {
       value = true;
     }
     return value;
   }
+
+  calcDataGroups = () => {
+    const { selectedGroup } = this.state;
+    switch (selectedGroup) {
+      case "days":
+        return [["day", [1]]];
+      case "weeks":
+        console.log("weeks");
+        return [["week", [1]]];
+      case "months":
+        return [["month", [1]]];
+      default:
+        console.log("default");
+        return [
+          ["day", [1]],
+          ["week", [1]],
+          ["month", [1, 3, 6]],
+          ["year", null]
+        ];
+    }
+  };
 
   handleLoad = async (name, ytitle, label, decimals, multi) => {
     this.setState({
@@ -126,6 +149,14 @@ class App extends Component {
     this.setState({ option });
   };
 
+  handleGroup = selectedGroup => {
+    this.refs["optionsGroup"].scrollIntoView({
+      block: "end",
+      behavior: "smooth"
+    });
+    this.setState({ selectedGroup });
+  };
+
   showModal = () => {
     this.setState({
       modalShow: true
@@ -162,7 +193,8 @@ class App extends Component {
       loading,
       rangeSelected,
       seriesOptions,
-      extremes
+      extremes,
+      selectedGroup
     } = this.state;
 
     if (didMount && !loading && initialLoad) {
@@ -245,7 +277,12 @@ class App extends Component {
         },
         plotOptions: {
           series: {
-            turboThreshold: 5000
+            turboThreshold: 5000,
+            dataGrouping: {
+              enabled: true,
+              forced: true,
+              units: _this.calcDataGroups()
+            }
           }
         },
         /*  xAxis: {
@@ -330,8 +367,11 @@ class App extends Component {
                   <div ref={"optionsGroup"}>
                     <OptionsGroup
                       options={options}
+                      dataGroups={dataGroups}
                       selectedOption={option}
+                      selectedGroup={selectedGroup}
                       raiseOptions={this.handleOptions}
+                      raiseGroup={this.handleGroup}
                     />
                   </div>
                 )}

@@ -61,3 +61,22 @@ export const options = [
     type: "linear"
   }
 ];
+
+export const dataGroups = [
+  {
+    name: "Default",
+    type: "default"
+  },
+  {
+    name: "Months",
+    type: "months"
+  },
+  {
+    name: "Weeks",
+    type: "weeks"
+  },
+  {
+    name: "Days",
+    type: "days"
+  }
+];
