@@ -35,7 +35,7 @@ export const charts = [
   {
     name: "realvalue",
     label: "Real transaction value",
-    ytitle: "Value of real TX per day"
+    ytitle: "Value of real TX per day (PPC)"
   },
   {
     name: "addrmintingmining",
