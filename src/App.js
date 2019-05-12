@@ -29,7 +29,70 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ didMount: true });
+    this.parseWindowUrl();
   }
+
+  parseWindowUrl = () => {
+    const splitPath = window.location.pathname.split("/").splice(1);
+    let option = this.state.option;
+    let rangeSelected = this.state.rangeSelected;
+    let selectedGroup = this.state.selectedGroup;
+
+    switch (splitPath[1]) {
+      case "0":
+        rangeSelected = 0;
+        break;
+      case "1":
+        rangeSelected = 1;
+        break;
+      case "2":
+        rangeSelected = 2;
+        break;
+      case "3":
+        rangeSelected = 3;
+        break;
+      case "4":
+        rangeSelected = 4;
+        break;
+      case "5":
+        rangeSelected = 5;
+        break;
+      default:
+        rangeSelected = 5;
+    }
+
+    Object.keys(options).forEach(x => {
+      if (options[x].type === splitPath[2]) {
+        option = splitPath[2];
+      }
+    });
+
+    Object.keys(dataGroups).forEach(x => {
+      if (dataGroups[x].type === splitPath[3]) {
+        selectedGroup = splitPath[3];
+      }
+    });
+
+    this.setState(
+      { rangeSelectedBuffer: rangeSelected, option, selectedGroup },
+      () =>
+        Object.keys(charts).forEach(x => {
+          if (charts[x].name === splitPath[0]) {
+            this.handleLoad(charts[x]);
+          }
+        })
+    );
+  };
+
+  changeWindowURL = () => {
+    window.history.pushState(
+      null,
+      "",
+      `/${this.state.selectedChart}/${this.state.rangeSelectedBuffer}/${
+        this.state.option
+      }/${this.state.selectedGroup}`
+    );
+  };
 
   shouldComponentUpdate(prevProps, prevState) {
     let value = true;
@@ -56,12 +119,10 @@ class App extends Component {
       case "days":
         return [["day", [1]]];
       case "weeks":
-        console.log("weeks");
         return [["week", [1]]];
       case "months":
         return [["month", [1]]];
       default:
-        console.log("default");
         return [
           ["day", [1]],
           ["week", [1]],
@@ -71,7 +132,7 @@ class App extends Component {
     }
   };
 
-  handleLoad = async (name, ytitle, label, decimals, multi) => {
+  handleLoad = async ({ name, ytitle, label, decimals, multi }) => {
     this.setState({
       loading: true
     });
@@ -127,16 +188,19 @@ class App extends Component {
       });
     }
 
-    this.setState({
-      ytitle,
-      selectedChart: name,
-      chartTitle: label,
-      decimals,
-      initialLoad: true,
-      loading: false,
-      seriesOptions,
-      rangeSelected: this.state.rangeSelectedBuffer
-    });
+    this.setState(
+      {
+        ytitle,
+        selectedChart: name,
+        chartTitle: label,
+        decimals,
+        initialLoad: true,
+        loading: false,
+        seriesOptions,
+        rangeSelected: this.state.rangeSelectedBuffer
+      },
+      () => this.changeWindowURL()
+    );
     this.refs["optionsGroup"].scrollIntoView({
       block: "end",
       behavior: "smooth"
@@ -145,7 +209,9 @@ class App extends Component {
 
   handleOptions = option => {
     const { rangeSelectedBuffer } = this.state;
-    this.setState({ option, rangeSelected: rangeSelectedBuffer }, () =>
+    this.setState(
+      { option, rangeSelected: rangeSelectedBuffer },
+      () => this.changeWindowURL(),
       this.refs["optionsGroup"].scrollIntoView({
         block: "end",
         behavior: "smooth"
@@ -155,7 +221,9 @@ class App extends Component {
 
   handleGroup = selectedGroup => {
     const { rangeSelectedBuffer } = this.state;
-    this.setState({ selectedGroup, rangeSelected: rangeSelectedBuffer }, () =>
+    this.setState(
+      { selectedGroup, rangeSelected: rangeSelectedBuffer },
+      () => this.changeWindowURL(),
       this.refs["optionsGroup"].scrollIntoView({
         block: "end",
         behavior: "smooth"
@@ -225,6 +293,7 @@ class App extends Component {
               events: {
                 click: () => {
                   _this.handleRange(0);
+                  _this.changeWindowURL();
                 }
               }
             },
@@ -233,8 +302,9 @@ class App extends Component {
               count: 3,
               text: "3m",
               events: {
-                click: function() {
+                click: () => {
                   _this.handleRange(1);
+                  _this.changeWindowURL();
                 }
               }
             },
@@ -243,8 +313,9 @@ class App extends Component {
               count: 6,
               text: "6m",
               events: {
-                click: function() {
+                click: () => {
                   _this.handleRange(2);
+                  _this.changeWindowURL();
                 }
               }
             },
@@ -252,8 +323,9 @@ class App extends Component {
               type: "ytd",
               text: "YTD",
               events: {
-                click: function() {
+                click: () => {
                   _this.handleRange(3);
+                  _this.changeWindowURL();
                 }
               }
             },
@@ -262,8 +334,9 @@ class App extends Component {
               count: 1,
               text: "1y",
               events: {
-                click: function() {
+                click: () => {
                   _this.handleRange(4);
+                  _this.changeWindowURL();
                 }
               }
             },
@@ -271,8 +344,9 @@ class App extends Component {
               type: "all",
               text: "All",
               events: {
-                click: function() {
+                click: () => {
                   _this.handleRange(5);
+                  _this.changeWindowURL();
                 }
               }
             }

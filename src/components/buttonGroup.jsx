@@ -19,15 +19,7 @@ const ButtonGroup = props => {
                 ? "btn btn-secondary active"
                 : "btn btn-secondary"
             }
-            onClick={() =>
-              raiseLoad(
-                chart.name,
-                chart.ytitle,
-                chart.label,
-                chart.decimals,
-                chart.multi
-              )
-            }
+            onClick={() => raiseLoad(chart)}
           >
             {chart.label}
           </button>
