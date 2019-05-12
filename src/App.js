@@ -125,7 +125,7 @@ class App extends Component {
     this.setState({
       loading: true
     });
-    const { data } = await http.get(`data/${name}.json`);
+    const { data } = await http.get(`/charts/data/${name}.json`);
 
     let array = [];
     let seriesOptions = [];
