@@ -68,12 +68,19 @@ class App extends Component {
   };
 
   changeWindowURL = () => {
+    let rangeSelected = this.state.rangeSelected;
+    console.log(process.env.REACT_APP_PATH);
+
+    if (this.state.rangeSelectedBuffer) {
+      rangeSelected = this.state.rangeSelectedBuffer;
+    }
+
     window.history.pushState(
       null,
       "",
-      `/${this.state.selectedChart}/${this.state.rangeSelectedBuffer}/${
-        this.state.option
-      }/${this.state.selectedGroup}`
+      `${process.env.REACT_APP_PATH}/${
+        this.state.selectedChart
+      }/${rangeSelected}/${this.state.option}/${this.state.selectedGroup}`
     );
   };
 
