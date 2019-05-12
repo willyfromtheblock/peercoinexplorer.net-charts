@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+nhaimport React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import GitHubButton from "react-github-btn";
 import Loader from "react-loader-spinner";
@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   parseWindowUrl = () => {
-    const splitPath = window.location.pathname.split("/").splice(1);
+    const splitPath = window.location.pathname.split("/").splice(2);
     let option = this.state.option;
     let rangeSelected = this.state.rangeSelected;
     let selectedGroup = this.state.selectedGroup;
@@ -69,7 +69,6 @@ class App extends Component {
 
   changeWindowURL = () => {
     let rangeSelected = this.state.rangeSelected;
-    console.log(process.env.REACT_APP_PATH);
 
     if (this.state.rangeSelectedBuffer) {
       rangeSelected = this.state.rangeSelectedBuffer;
@@ -78,9 +77,9 @@ class App extends Component {
     window.history.pushState(
       null,
       "",
-      `${process.env.REACT_APP_PATH}/${
-        this.state.selectedChart
-      }/${rangeSelected}/${this.state.option}/${this.state.selectedGroup}`
+      `/charts/${this.state.selectedChart}/${rangeSelected}/${
+        this.state.option
+      }/${this.state.selectedGroup}`
     );
   };
 
