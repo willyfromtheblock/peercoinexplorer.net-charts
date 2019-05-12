@@ -68,11 +68,7 @@ class App extends Component {
   };
 
   changeWindowURL = () => {
-    let rangeSelected = this.state.rangeSelected;
-
-    if (this.state.rangeSelectedBuffer) {
-      rangeSelected = this.state.rangeSelectedBuffer;
-    }
+    let rangeSelected = this.state.rangeSelectedBuffer;
 
     window.history.pushState(
       null,
