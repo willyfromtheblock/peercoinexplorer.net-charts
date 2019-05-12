@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+ahimport React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import GitHubButton from "react-github-btn";
 import Loader from "react-loader-spinner";
@@ -125,7 +125,7 @@ class App extends Component {
     this.setState({
       loading: true
     });
-    const { data } = await http.get(`/charts/data/${name}.json`);
+    const { data } = await http.get(`/chart_data/${name}.json`);
 
     let array = [];
     let seriesOptions = [];
