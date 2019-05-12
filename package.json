@@ -4,6 +4,7 @@
   "homepage": "https://www.peercoinexplorer.net/charts/",
   "private": true,
   "dependencies": {
+    "@sentry/browser": "^5.2.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
     "font-awesome": "^4.7.0",
