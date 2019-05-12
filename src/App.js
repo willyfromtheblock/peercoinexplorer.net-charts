@@ -38,27 +38,10 @@ class App extends Component {
     let rangeSelected = this.state.rangeSelected;
     let selectedGroup = this.state.selectedGroup;
 
-    switch (splitPath[1]) {
-      case "0":
-        rangeSelected = 0;
-        break;
-      case "1":
-        rangeSelected = 1;
-        break;
-      case "2":
-        rangeSelected = 2;
-        break;
-      case "3":
-        rangeSelected = 3;
-        break;
-      case "4":
-        rangeSelected = 4;
-        break;
-      case "5":
-        rangeSelected = 5;
-        break;
-      default:
-        rangeSelected = 5;
+    if (splitPath[1] >= 0 && splitPath[1] <= 5) {
+      rangeSelected = splitPath[1];
+    } else {
+      rangeSelected = 5;
     }
 
     Object.keys(options).forEach(x => {
