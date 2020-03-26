@@ -27,8 +27,12 @@ html {
 
 .footer {
   width: 100%;
+  max-width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  margin-top: -50px;
   text-align: center;
-  bottom: 0px;
 }
 
 .loader {
