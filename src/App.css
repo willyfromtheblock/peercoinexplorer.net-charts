@@ -23,6 +23,9 @@ html {
 .btn-secondary:active,
 .btn-secondary.active {
   background-color: #5a5a5a !important;
+}
+
+.btn-group > .btn.active {
   z-index: auto;
 }
 
