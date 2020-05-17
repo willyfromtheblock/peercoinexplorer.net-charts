@@ -7,7 +7,7 @@ export const charts = [
   {
     name: "coinsupply",
     label: "Coin supply",
-    ytitle: "PPC in circulation",
+    ytitle: "PPC in circulation by origin",
     multi: true,
   },
   {
