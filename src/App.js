@@ -27,14 +27,15 @@ class App extends Component {
     decimals: 2,
     extremes: { min: null, max: null },
     selectedGroup: "default",
-    selectedChart: ""
+    selectedChart: "",
   };
 
   componentDidMount() {
     this.setState({ didMount: true });
     this.parseWindowUrl();
     Sentry.init({
-      dsn: "https://4b8b4e3c16ae4e188b6112c866225b20@sentry.io/1457664"
+      dsn:
+        "https://4b8b4e3c16ae4e188b6112c866225b20@o260704.ingest.sentry.io/1457664",
     });
   }
 
@@ -50,13 +51,13 @@ class App extends Component {
       rangeSelected = 5;
     }
 
-    Object.keys(options).forEach(x => {
+    Object.keys(options).forEach((x) => {
       if (options[x].type === splitPath[2]) {
         option = splitPath[2];
       }
     });
 
-    Object.keys(dataGroups).forEach(x => {
+    Object.keys(dataGroups).forEach((x) => {
       if (dataGroups[x].type === splitPath[3]) {
         selectedGroup = splitPath[3];
       }
@@ -65,7 +66,7 @@ class App extends Component {
     this.setState(
       { rangeSelectedBuffer: rangeSelected, option, selectedGroup },
       () =>
-        Object.keys(charts).forEach(x => {
+        Object.keys(charts).forEach((x) => {
           if (charts[x].name === splitPath[0]) {
             this.handleLoad(charts[x]);
           }
@@ -116,14 +117,14 @@ class App extends Component {
           ["day", [1]],
           ["week", [1]],
           ["month", [1, 3, 6]],
-          ["year", null]
+          ["year", null],
         ];
     }
   };
 
   handleLoad = async ({ name, ytitle, label, decimals, multi }) => {
     this.setState({
-      loading: true
+      loading: true,
     });
     const { data } = await http.get(`/chart_data/${name}.json`);
 
@@ -136,7 +137,7 @@ class App extends Component {
     }
 
     if (multi === undefined) {
-      Object.keys(data).forEach(key => {
+      Object.keys(data).forEach((key) => {
         const date = key.split("-");
         array.push([Date.UTC(date[0], date[1] - 1, date[2]), data[key]]);
       });
@@ -146,33 +147,33 @@ class App extends Component {
           name: label,
           data: array,
           tooltip: {
-            valueDecimals: decimals
-          }
-        }
+            valueDecimals: decimals,
+          },
+        },
       ];
     } else {
-      Object.keys(data).forEach(key => {
+      Object.keys(data).forEach((key) => {
         if (key === "series") {
-          data[key].forEach(x => (obj[x] = []));
+          data[key].forEach((x) => (obj[x] = []));
         } else {
           const date = key.split("-");
-          Object.keys(data[key]).forEach(name => {
+          Object.keys(data[key]).forEach((name) => {
             const newArray = [
               Date.UTC(date[0], date[1] - 1, date[2]),
-              data[key][name]
+              data[key][name],
             ];
             obj[name] = [...obj[name], newArray];
           });
         }
       });
 
-      Object.keys(obj).forEach(name => {
+      Object.keys(obj).forEach((name) => {
         seriesOptions.push({
           name,
           data: obj[name],
           tooltip: {
-            valueDecimals: decimals
-          }
+            valueDecimals: decimals,
+          },
         });
       });
     }
@@ -186,57 +187,57 @@ class App extends Component {
         initialLoad: true,
         loading: false,
         seriesOptions,
-        rangeSelected: this.state.rangeSelectedBuffer
+        rangeSelected: this.state.rangeSelectedBuffer,
       },
       () => this.changeWindowURL()
     );
     this.refs["optionsGroup"].scrollIntoView({
       block: "end",
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
-  handleOptions = option => {
+  handleOptions = (option) => {
     const { rangeSelectedBuffer } = this.state;
     this.setState(
       { option, rangeSelected: rangeSelectedBuffer },
       () => this.changeWindowURL(),
       this.refs["optionsGroup"].scrollIntoView({
         block: "end",
-        behavior: "smooth"
+        behavior: "smooth",
       })
     );
   };
 
-  handleGroup = selectedGroup => {
+  handleGroup = (selectedGroup) => {
     const { rangeSelectedBuffer } = this.state;
     this.setState(
       { selectedGroup, rangeSelected: rangeSelectedBuffer },
       () => this.changeWindowURL(),
       this.refs["optionsGroup"].scrollIntoView({
         block: "end",
-        behavior: "smooth"
+        behavior: "smooth",
       })
     );
   };
 
   showModal = () => {
     this.setState({
-      modalShow: true
+      modalShow: true,
     });
   };
 
   hideModal = () => {
     this.setState({
-      modalShow: false
+      modalShow: false,
     });
   };
 
-  handleRange = index => {
+  handleRange = (index) => {
     this.setState({ rangeSelectedBuffer: index });
   };
 
-  handleExtremes = event => {
+  handleExtremes = (event) => {
     let extremes = {};
     extremes.max = Math.round(event.max, 0);
     extremes.min = Math.round(event.min, 0);
@@ -256,19 +257,19 @@ class App extends Component {
       loading,
       rangeSelected,
       seriesOptions,
-      selectedGroup
+      selectedGroup,
     } = this.state;
 
     if (didMount && !loading && initialLoad) {
       const _this = this;
 
       Highcharts.stockChart("chartContainer", {
-        colors: ["#3cb054", "#b35900"],
+        colors: ["#3cb054", "#b35900", "dodgerblue"],
         chart: {
-          zoomType: "x"
+          zoomType: "x",
         },
         legend: {
-          enabled: true
+          enabled: true,
         },
         rangeSelector: {
           inputDateFormat: "%Y-%m-%d",
@@ -282,8 +283,8 @@ class App extends Component {
                 click: () => {
                   _this.handleRange(0);
                   _this.changeWindowURL();
-                }
-              }
+                },
+              },
             },
             {
               type: "month",
@@ -293,8 +294,8 @@ class App extends Component {
                 click: () => {
                   _this.handleRange(1);
                   _this.changeWindowURL();
-                }
-              }
+                },
+              },
             },
             {
               type: "month",
@@ -304,8 +305,8 @@ class App extends Component {
                 click: () => {
                   _this.handleRange(2);
                   _this.changeWindowURL();
-                }
-              }
+                },
+              },
             },
             {
               type: "ytd",
@@ -314,8 +315,8 @@ class App extends Component {
                 click: () => {
                   _this.handleRange(3);
                   _this.changeWindowURL();
-                }
-              }
+                },
+              },
             },
             {
               type: "year",
@@ -325,8 +326,8 @@ class App extends Component {
                 click: () => {
                   _this.handleRange(4);
                   _this.changeWindowURL();
-                }
-              }
+                },
+              },
             },
             {
               type: "all",
@@ -335,23 +336,24 @@ class App extends Component {
                 click: () => {
                   _this.handleRange(5);
                   _this.changeWindowURL();
-                }
-              }
-            }
-          ]
+                },
+              },
+            },
+          ],
         },
         title: {
-          text: chartTitle
+          text: chartTitle,
         },
         plotOptions: {
           series: {
             turboThreshold: 5000,
+
             dataGrouping: {
               enabled: true,
               forced: true,
-              units: _this.calcDataGroups()
-            }
-          }
+              units: _this.calcDataGroups(),
+            },
+          },
         },
         /*  xAxis: {
           events: {
@@ -366,14 +368,14 @@ class App extends Component {
           title: {
             text: ytitle,
             style: {
-              "font-size": "0.8rem"
-            }
+              "font-size": "0.8rem",
+            },
           },
           type: option,
-          min: 1,
-          minorTickInterval: "auto"
+          min: 0.1,
+          minorTickInterval: "auto",
         },
-        series: seriesOptions
+        series: seriesOptions,
       });
     }
 
@@ -386,7 +388,7 @@ class App extends Component {
               style={{
                 position: "absolute",
                 width: "100%",
-                minHeight: "100vh"
+                minHeight: "100vh",
               }}
             >
               {loading && (
