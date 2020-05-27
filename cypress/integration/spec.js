@@ -1,8 +1,7 @@
 describe("Cookie and Initial", function () {
   it("Visit peercoinexplorer.net/charts", function () {
-    cy.visit("https://peercoinexplorer.net/charts");
+    cy.visit("http://localhost:3000/");
     cy.contains("Please select a chart to load.");
-    cy.contains("Got It").click();
   });
 });
 
@@ -17,7 +16,7 @@ describe("Every Chart", () => {
   });
   it("PoS Difficulty", () => {
     cy.contains("PoS Difficulty").click();
-    cy.contains("2012-08-13");
+    cy.contains("2012-09-17");
   });
   it("PoW Difficulty", () => {
     cy.contains("PoW Difficulty").click();
@@ -70,6 +69,27 @@ describe("Data Grouping", () => {
   });
   it("Default", () => {
     cy.contains("Default").click();
+  });
+});
+
+describe("Highcharts Zoom", () => {
+  it("1m", () => {
+    cy.contains("1m").click();
+  });
+  it("3m", () => {
+    cy.contains("3m").click();
+  });
+  it("6m", () => {
+    cy.contains("6m").click();
+  });
+  it("YTD", () => {
+    cy.contains("YTD").click();
+  });
+  it("1y", () => {
+    cy.contains("1y").click();
+  });
+  it("All", () => {
+    cy.contains("All").click();
   });
 });
 
