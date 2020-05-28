@@ -8,10 +8,13 @@ import "./App.css";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import Charts from "./components/charts";
+import PerformanceModal from "./components/performanceModal";
 
 class App extends Component {
   state = {
     modalShow: false,
+    performanceChoice: null,
+    performanceCallBack: undefined,
   };
 
   componentDidMount() {
@@ -22,20 +25,35 @@ class App extends Component {
     });
   }
 
-  showModal = () => {
+  toggleModal = (type) => {
     this.setState({
-      modalShow: true,
+      modalShow: !this.state.modalShow,
+      modalType: type,
     });
   };
 
-  hideModal = () => {
-    this.setState({
-      modalShow: false,
-    });
+  handlePerformanceCheck = (performanceCallBack) => {
+    const { performanceChoice } = this.state;
+    if (performanceChoice === null) {
+      this.setState({ performanceCallBack }, () =>
+        this.toggleModal("performance")
+      );
+    } else {
+      performanceCallBack();
+    }
+  };
+
+  handlePerformanceChoice = (choice) => {
+    this.setState({ performanceChoice: choice });
   };
 
   render() {
-    const { modalShow } = this.state;
+    const {
+      modalShow,
+      modalType,
+      performanceCallBack,
+      performanceChoice,
+    } = this.state;
     return (
       <React.Fragment>
         <SentryBoundary>
@@ -47,13 +65,31 @@ class App extends Component {
               minHeight: "100vh",
             }}
           >
-            <DonationModal modalShow={modalShow} hideModal={this.hideModal} />
+            {modalType === "donation" ? (
+              <DonationModal
+                modalShow={modalShow}
+                hideModal={this.toggleModal}
+              />
+            ) : (
+              modalType === "performance" && (
+                <PerformanceModal
+                  modalShow={modalShow}
+                  hideModal={this.toggleModal}
+                  performanceCallBack={performanceCallBack}
+                  raisePerformanceChoice={this.handlePerformanceChoice}
+                />
+              )
+            )}
             <Header />
             <main role="main">
-              <Charts didMount={this.state.didMount} />
+              <Charts
+                didMount={this.state.didMount}
+                raisePerformanceCheck={this.handlePerformanceCheck}
+                performanceChoice={performanceChoice}
+              />
             </main>
           </div>
-          <Footer raiseShowModal={this.showModal} />
+          <Footer raiseShowModal={this.toggleModal} />
         </SentryBoundary>
       </React.Fragment>
     );

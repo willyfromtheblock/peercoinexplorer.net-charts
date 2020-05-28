@@ -25,8 +25,9 @@ html {
   background-color: #5a5a5a !important;
 }
 
-.btn-group > .btn.active {
-  z-index: auto;
+.btn-group > .btn.active,
+.btn-group > active {
+  z-index: auto !important;
 }
 
 .footer {
@@ -53,15 +54,25 @@ html {
 }
 
 .logo {
-  width: 20vw;
-  height: 8vh;
+  width: 15rem;
+  height: 5rem;
 }
 
-@media screen and (max-width: 800px) {
+.logo-flex-container {
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
   .logo {
-    width: 90vw;
-    height: 10vh;
+    width: 10rem;
+    height: 4rem;
   }
+  .logo-flex-container {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 990px) {
   .donate_addr {
     font-size: 0.79rem !important;
   }

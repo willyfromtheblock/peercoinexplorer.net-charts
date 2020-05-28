@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header>
       <div className="navbar_ppc navbar-dark shadow-sm">
-        <div className="container d-flex justify-content-between">
+        <div className="container d-flex logo-flex-container">
           <img
             className="logo"
             style={{ maxWidth: "100vw", margin: 10 }}

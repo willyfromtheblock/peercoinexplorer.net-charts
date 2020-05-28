@@ -8,7 +8,11 @@ import ButtonGroup from "./buttonGroup";
 import { charts, options, dataGroups } from "./config";
 
 class Charts extends Component {
-  state = { option: "linear", selectedGroup: "default" };
+  state = {
+    option: "linear",
+    selectedGroup: "default",
+    rangeSelectedBuffer: 5,
+  };
 
   shouldComponentUpdate(prevProps, prevState) {
     let value = true;
@@ -33,10 +37,29 @@ class Charts extends Component {
     this.parseWindowUrl();
   }
 
-  handleChartClick = (index) => {
-    this.handleRange(index);
-    this.changeWindowURL();
+  checkDataGroupDayRangeAll = (index, selectedGroup, callback) => {
+    if (parseInt(index) === 5 && selectedGroup === "days") {
+      if (this.props.performanceChoice === null) {
+        //check mobile
+        if (window.matchMedia("only screen and (max-width: 768px)").matches) {
+          this.props.raisePerformanceCheck(callback);
+          return false;
+        }
+      }
+    }
+    callback();
     return true;
+  };
+
+  handleChartClick = (index) => {
+    return this.checkDataGroupDayRangeAll(
+      index,
+      this.state.selectedGroup,
+      () => {
+        this.handleRange(index);
+        this.changeWindowURL();
+      }
+    );
   };
 
   parseWindowUrl = () => {
@@ -61,15 +84,17 @@ class Charts extends Component {
       }
     });
 
-    this.setState(
-      { rangeSelectedBuffer: rangeSelected, option, selectedGroup },
-      () =>
-        Object.keys(charts).forEach((x) => {
-          if (charts[x].name === splitPath[0]) {
-            this.handleLoad(charts[x]);
-          }
-        })
-    );
+    this.checkDataGroupDayRangeAll(rangeSelected, selectedGroup, () => {
+      this.setState(
+        { rangeSelectedBuffer: rangeSelected, option, selectedGroup },
+        () =>
+          Object.keys(charts).forEach((x) => {
+            if (charts[x].name === splitPath[0]) {
+              this.handleLoad(charts[x]);
+            }
+          })
+      );
+    });
   };
 
   changeWindowURL = () => {
@@ -198,14 +223,17 @@ class Charts extends Component {
 
   handleGroup = (selectedGroup) => {
     const { rangeSelectedBuffer } = this.state;
-    this.setState(
-      { selectedGroup, rangeSelected: rangeSelectedBuffer },
-      () => this.changeWindowURL(),
-      this.refs["optionsGroup"].scrollIntoView({
-        block: "end",
-        behavior: "smooth",
-      })
-    );
+
+    this.checkDataGroupDayRangeAll(rangeSelectedBuffer, selectedGroup, () => {
+      this.setState(
+        { selectedGroup, rangeSelected: rangeSelectedBuffer },
+        () => this.changeWindowURL(),
+        this.refs["optionsGroup"].scrollIntoView({
+          block: "end",
+          behavior: "smooth",
+        })
+      );
+    });
   };
 
   render() {
@@ -254,7 +282,7 @@ class Charts extends Component {
               text: "3m",
               events: {
                 click: () => {
-                  return _this.handleChartClick(0);
+                  return _this.handleChartClick(1);
                 },
               },
             },
@@ -264,7 +292,7 @@ class Charts extends Component {
               text: "6m",
               events: {
                 click: () => {
-                  return _this.handleChartClick(0);
+                  return _this.handleChartClick(2);
                 },
               },
             },
@@ -273,7 +301,7 @@ class Charts extends Component {
               text: "YTD",
               events: {
                 click: () => {
-                  return _this.handleChartClick(0);
+                  return _this.handleChartClick(3);
                 },
               },
             },
@@ -283,7 +311,7 @@ class Charts extends Component {
               text: "1y",
               events: {
                 click: () => {
-                  return _this.handleChartClick(0);
+                  return _this.handleChartClick(4);
                 },
               },
             },
@@ -292,7 +320,7 @@ class Charts extends Component {
               text: "All",
               events: {
                 click: () => {
-                  return _this.handleChartClick(0);
+                  return _this.handleChartClick(5);
                 },
               },
             },
