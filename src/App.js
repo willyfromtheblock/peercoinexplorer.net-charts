@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
-import DonationModal from "./components/donationModal";
+import DonationModal from "./components/modals/donationModal";
 import SentryBoundary from "./components/sentry";
 import * as Sentry from "@sentry/browser";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,7 +8,7 @@ import "./App.css";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import Charts from "./components/charts";
-import PerformanceModal from "./components/performanceModal";
+import PerformanceModal from "./components/modals/performanceModal";
 
 class App extends Component {
   state = {
