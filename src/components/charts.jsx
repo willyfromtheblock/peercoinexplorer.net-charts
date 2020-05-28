@@ -33,6 +33,11 @@ class Charts extends Component {
     this.parseWindowUrl();
   }
 
+  handleChartClick = (index) => {
+    this.handleRange(index);
+    this.changeWindowURL();
+  };
+
   parseWindowUrl = () => {
     const splitPath = window.location.pathname.split("/").splice(2);
     let { option, rangeSelected, selectedGroup } = this.state;
@@ -73,7 +78,6 @@ class Charts extends Component {
       selectedChart,
       rangeSelectedBuffer,
     } = this.state;
-
     window.history.pushState(
       null,
       "",
@@ -239,8 +243,7 @@ class Charts extends Component {
               text: "1m",
               events: {
                 click: () => {
-                  _this.handleRange(0);
-                  _this.changeWindowURL();
+                  _this.handleChartClick(0);
                 },
               },
             },
@@ -250,8 +253,7 @@ class Charts extends Component {
               text: "3m",
               events: {
                 click: () => {
-                  _this.handleRange(1);
-                  _this.changeWindowURL();
+                  _this.handleChartClick(1);
                 },
               },
             },
@@ -261,8 +263,7 @@ class Charts extends Component {
               text: "6m",
               events: {
                 click: () => {
-                  _this.handleRange(2);
-                  _this.changeWindowURL();
+                  _this.handleChartClick(2);
                 },
               },
             },
@@ -271,8 +272,7 @@ class Charts extends Component {
               text: "YTD",
               events: {
                 click: () => {
-                  _this.handleRange(3);
-                  _this.changeWindowURL();
+                  _this.handleChartClick(3);
                 },
               },
             },
@@ -282,8 +282,7 @@ class Charts extends Component {
               text: "1y",
               events: {
                 click: () => {
-                  _this.handleRange(4);
-                  _this.changeWindowURL();
+                  _this.handleChartClick(4);
                 },
               },
             },
@@ -292,8 +291,7 @@ class Charts extends Component {
               text: "All",
               events: {
                 click: () => {
-                  _this.handleRange(5);
-                  _this.changeWindowURL();
+                  _this.handleChartClick(5);
                 },
               },
             },
