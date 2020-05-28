@@ -36,6 +36,7 @@ class Charts extends Component {
   handleChartClick = (index) => {
     this.handleRange(index);
     this.changeWindowURL();
+    return true;
   };
 
   parseWindowUrl = () => {
@@ -243,7 +244,7 @@ class Charts extends Component {
               text: "1m",
               events: {
                 click: () => {
-                  _this.handleChartClick(0);
+                  return _this.handleChartClick(0);
                 },
               },
             },
@@ -253,7 +254,7 @@ class Charts extends Component {
               text: "3m",
               events: {
                 click: () => {
-                  _this.handleChartClick(1);
+                  return _this.handleChartClick(0);
                 },
               },
             },
@@ -263,7 +264,7 @@ class Charts extends Component {
               text: "6m",
               events: {
                 click: () => {
-                  _this.handleChartClick(2);
+                  return _this.handleChartClick(0);
                 },
               },
             },
@@ -272,7 +273,7 @@ class Charts extends Component {
               text: "YTD",
               events: {
                 click: () => {
-                  _this.handleChartClick(3);
+                  return _this.handleChartClick(0);
                 },
               },
             },
@@ -282,7 +283,7 @@ class Charts extends Component {
               text: "1y",
               events: {
                 click: () => {
-                  _this.handleChartClick(4);
+                  return _this.handleChartClick(0);
                 },
               },
             },
@@ -291,7 +292,7 @@ class Charts extends Component {
               text: "All",
               events: {
                 click: () => {
-                  _this.handleChartClick(5);
+                  return _this.handleChartClick(0);
                 },
               },
             },
