@@ -70,6 +70,9 @@ html {
   .logo-flex-container {
     justify-content: center;
   }
+  .donate_addr {
+    padding: 0 !important;
+  }
 }
 
 @media screen and (max-width: 990px) {
