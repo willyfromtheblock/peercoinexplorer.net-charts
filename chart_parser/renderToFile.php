@@ -17,6 +17,7 @@ $realVOUT = array();
 $AddrMintingMining = array();
 $MintingMining = array();
 $InflationRate = array();
+$PowReward = array();
 
 foreach ($data as $index => $block) {
     $blockTime = $block["timeBlock"];
@@ -53,6 +54,7 @@ foreach ($dailyBlocks as $day => $block) {
     $dailyVOUT = 0;
     $PoWAddressArray = array();
     $PoSAddressArray = array();
+    $PowReward[$day] = 0;
    
     if (array_key_exists("pow", $block)) {
         $dailyPoWCount = count($block["pow"]);
@@ -68,6 +70,7 @@ foreach ($dailyBlocks as $day => $block) {
             }
         }
         $PoWDifficulty[$day] = $dailyPoWSum / $dailyPoWCount;
+        $PowReward[$day] = round($dailyPoWMint / $dailyPoWCount, 2);
     } 
     if (array_key_exists("pos", $block)) {
         $dailyPoSCount = count($block["pos"]);
@@ -138,3 +141,4 @@ file_put_contents("$dataDir/realvalue.json", json_encode(array_trim_end($realVOU
 file_put_contents("$dataDir/mintingmining.json", json_encode(array_trim_end($MintingMining)));
 file_put_contents("$dataDir/addrmintingmining.json", json_encode(array_trim_end($AddrMintingMining)));
 file_put_contents("$dataDir/annualinflation.json", json_encode(array_trim_end($InflationRate)));
+file_put_contents("$dataDir/powreward.json", json_encode(array_trim_end($PowReward)));

@@ -15,7 +15,7 @@
     "react-dom": "^16.7.0",
     "react-github-btn": "^1.0.5",
     "react-loader-spinner": "^2.3.0",
-    "react-scripts": "3.4.4",
+    "react-scripts": "^4.0.3",
     "react-toastify": "^4.5.2"
   },
   "scripts": {

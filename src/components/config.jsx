@@ -21,6 +21,11 @@ export const charts = [
     ytitle: "avg. PoW difficulty per day",
   },
   {
+    name: "powreward",
+    label: "PoW Reward",
+    ytitle: "avg. PoW reward per day",
+  },
+  {
     name: "blockratio",
     label: "PoS/PoW block ratio",
     ytitle: "ratio of PoS to PoW blocks",
@@ -52,7 +57,7 @@ export const charts = [
   {
     name: "annualinflation",
     label: "Annual inflation rate",
-    ytitle: "annual inflation rate in % per day",
+    ytitle: "Annual inflation rate in % per day",
     multi: true,
   },
 ];

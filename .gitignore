@@ -29,3 +29,6 @@ yarn-debug.log*
 yarn-error.log*
 src/App (Kopie).js
 src/App.test.js
+chart_parser/functions.php
+chart_parser/output
+chart_parser/peercoin
