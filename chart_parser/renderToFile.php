@@ -89,6 +89,10 @@ foreach ($dailyBlocks as $day => $block) {
 
         if ($dailyPoWCount) {
             $blockRatio[$day] = round(($dailyPoSCount / $dailyPoWCount), 2);
+        } else {
+            //no PoW blocks that day, remove 0 value and use last days value for PowReward
+            array_pop($PowReward);
+            $PowReward[$day] = array_values(array_slice($PowReward, -1))[0]; 
         }
     }
     $realTX[$day] = $dailyRealTX;
