@@ -60,6 +60,16 @@ export const charts = [
     ytitle: "Annual inflation rate in % per day",
     multi: true,
   },
+  {
+    name: "dailyfees",
+    label: "Daily Transaction Fees",
+    ytitle: "Fees per day (PPC)",
+  },
+  {
+    name: "totalfees",
+    label: "Total Transaction Fees",
+    ytitle: "accumulated Fees per day (PPC)",
+  },
 ];
 
 export const options = [
