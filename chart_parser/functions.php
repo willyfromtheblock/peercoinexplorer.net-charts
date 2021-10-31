@@ -4,7 +4,7 @@ function getData()
 {
     global $db;
     $resultArray = array();
-    $result = $db->query("SELECT type,difficulty,timeBlock,coinsupply,mint,RealTX,RealVOUT,FoundBy FROM blocks");
+    $result = $db->query("SELECT type,difficulty,timeBlock,coinsupply,mint,RealTX,RealVOUT,FoundBy,txfee FROM blocks");
     while ($res = $result->fetchArray(SQLITE3_ASSOC)) {
         $resultArray[] = $res;
     }

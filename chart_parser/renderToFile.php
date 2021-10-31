@@ -18,6 +18,8 @@ $AddrMintingMining = array();
 $MintingMining = array();
 $InflationRate = array();
 $PowReward = array();
+$DailyFees = array();
+$TotalFees = array();
 
 foreach ($data as $index => $block) {
     $blockTime = $block["timeBlock"];
@@ -55,6 +57,7 @@ foreach ($dailyBlocks as $day => $block) {
     $PoWAddressArray = array();
     $PoSAddressArray = array();
     $PowReward[$day] = 0;
+    $dailyFees = 0; 
    
     if (array_key_exists("pow", $block)) {
         $dailyPoWCount = count($block["pow"]);
@@ -64,6 +67,7 @@ foreach ($dailyBlocks as $day => $block) {
             $dailyPoWMint += $powBlock["mint"];
             $dailyRealTX += $powBlock["RealTX"];
             $dailyVOUT += $powBlock["RealVOUT"];
+            $dailyFees += $powBlock["txfee"];
 
             if (!in_array($powBlock["FoundBy"], $PoWAddressArray)) {
                 $PoWAddressArray[] = $powBlock["FoundBy"];
@@ -80,6 +84,7 @@ foreach ($dailyBlocks as $day => $block) {
             $dailyPoSMint += $posBlock["mint"];
             $dailyRealTX += $posBlock["RealTX"];
             $dailyVOUT += $posBlock["RealVOUT"];
+            $dailyFees += $powBlock["txfee"];
 
             if (!in_array($posBlock["FoundBy"], $PoSAddressArray)) {
                 $PoSAddressArray[] = $posBlock["FoundBy"];
@@ -101,6 +106,8 @@ foreach ($dailyBlocks as $day => $block) {
     $MintingMining[$day]["mining"] = $dailyPoWMint;
     $AddrMintingMining[$day]["minting"] = count($PoSAddressArray);
     $AddrMintingMining[$day]["mining"] = count($PoWAddressArray);
+    $DailyFees[$day] = round($dailyFees, 6);
+    $TotalFees[$day] = round($DailyFees[$day] + end($TotalFees), 6);
 }
 
 foreach($MintingMining as $day => $block) {
@@ -146,3 +153,5 @@ file_put_contents("$dataDir/mintingmining.json", json_encode(array_trim_end($Min
 file_put_contents("$dataDir/addrmintingmining.json", json_encode(array_trim_end($AddrMintingMining)));
 file_put_contents("$dataDir/annualinflation.json", json_encode(array_trim_end($InflationRate)));
 file_put_contents("$dataDir/powreward.json", json_encode(array_trim_end($PowReward)));
+file_put_contents("$dataDir/dailyfees.json", json_encode(array_trim_end($DailyFees)));
+file_put_contents("$dataDir/totalfees.json", json_encode(array_trim_end($TotalFees)));
