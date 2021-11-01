@@ -62,13 +62,13 @@ export const charts = [
   },
   {
     name: "dailyfees",
-    label: "Daily Transaction Fees",
+    label: "Daily transaction fees",
     ytitle: "Fees per day (PPC)",
   },
   {
     name: "totalfees",
-    label: "Total Transaction Fees",
-    ytitle: "accumulated Fees per day (PPC)",
+    label: "Total transaction fees",
+    ytitle: "accumulated fees per day (PPC)",
   },
 ];
 
