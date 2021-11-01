@@ -16,8 +16,8 @@ const DonationModal = (props) => {
       }
     >
       <div className="text-center">
-        <QRCode value="PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS" />
-        <p className="donate_addr">PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS</p>
+        <QRCode value="PM7jjBUPjzpkZy1UZtD7mvmHoXJ2BGvbx9" />
+        <p className="donate_addr">PM7jjBUPjzpkZy1UZtD7mvmHoXJ2BGvbx9</p>
         <i className="fa fa-thumbs-o-up" />
       </div>
     </ModalComponent>

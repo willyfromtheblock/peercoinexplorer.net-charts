@@ -95,7 +95,7 @@ describe("Highcharts Zoom", () => {
 
 describe("Donation Modal", () => {
   it("Open Modal", () => {
-    cy.contains("PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS").click();
+    cy.contains("PM7jjBUPjzpkZy1UZtD7mvmHoXJ2BGvbx9").click();
     cy.contains("Donation address");
     cy.get(".modal-content").should("exist");
   });
