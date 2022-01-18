@@ -70,6 +70,16 @@ export const charts = [
     label: "Total transaction fees",
     ytitle: "accumulated fees per day (PPC)",
   },
+  {
+    name: "dailyblocksize",
+    label: "Daily block size",
+    ytitle: "avg. block size per day (byte)",
+  },
+  {
+    name: "totalblocksize",
+    label: "Total block size",
+    ytitle: "accumulated block size per day (megabyte)",
+  },
 ];
 
 export const options = [
