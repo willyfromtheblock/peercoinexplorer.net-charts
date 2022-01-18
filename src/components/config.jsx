@@ -73,12 +73,12 @@ export const charts = [
   {
     name: "dailyblocksize",
     label: "Daily block size",
-    ytitle: "avg. block size per day (byte)",
+    ytitle: "avg. block size per day (bytes)",
   },
   {
     name: "totalblocksize",
     label: "Total block size",
-    ytitle: "accumulated block size per day (megabyte)",
+    ytitle: "accumulated block size per day (megabytes)",
   },
 ];
 
