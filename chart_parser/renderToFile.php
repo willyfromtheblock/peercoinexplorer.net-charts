@@ -18,8 +18,10 @@ $AddrMintingMining = array();
 $MintingMining = array();
 $InflationRate = array();
 $PowReward = array();
-$DailyFees = array();
+$DailyFeesAverage = array();
 $TotalFees = array();
+$DailyBlockSizeAverage = array();
+$TotalBlockSize = array();
 
 foreach ($data as $index => $block) {
     $blockTime = $block["timeBlock"];
@@ -58,6 +60,7 @@ foreach ($dailyBlocks as $day => $block) {
     $PoSAddressArray = array();
     $PowReward[$day] = 0;
     $dailyFees = 0; 
+    $dailyBlockSize = 0;
    
     if (array_key_exists("pow", $block)) {
         $dailyPoWCount = count($block["pow"]);
@@ -68,6 +71,7 @@ foreach ($dailyBlocks as $day => $block) {
             $dailyRealTX += $powBlock["RealTX"];
             $dailyVOUT += $powBlock["RealVOUT"];
             $dailyFees += $powBlock["txfee"];
+            $dailyBlockSize += $powBlock["blockSize"];
 
             if (!in_array($powBlock["FoundBy"], $PoWAddressArray)) {
                 $PoWAddressArray[] = $powBlock["FoundBy"];
@@ -84,7 +88,8 @@ foreach ($dailyBlocks as $day => $block) {
             $dailyPoSMint += $posBlock["mint"];
             $dailyRealTX += $posBlock["RealTX"];
             $dailyVOUT += $posBlock["RealVOUT"];
-            $dailyFees += $powBlock["txfee"];
+            $dailyFees += $posBlock["txfee"];
+            $dailyBlockSize += $posBlock["blockSize"];
 
             if (!in_array($posBlock["FoundBy"], $PoSAddressArray)) {
                 $PoSAddressArray[] = $posBlock["FoundBy"];
@@ -106,8 +111,10 @@ foreach ($dailyBlocks as $day => $block) {
     $MintingMining[$day]["mining"] = $dailyPoWMint;
     $AddrMintingMining[$day]["minting"] = count($PoSAddressArray);
     $AddrMintingMining[$day]["mining"] = count($PoWAddressArray);
-    $DailyFees[$day] = round($dailyFees, 6);
-    $TotalFees[$day] = round($DailyFees[$day] + end($TotalFees), 6);
+    $DailyFeesAverage[$day] = round($dailyFees, 6);
+    $TotalFees[$day] = round($DailyFeesAverage[$day] + end($TotalFees), 6);
+    $DailyBlockSizeAverage[$day] = round(($dailyBlockSize / ($dailyPoSCount + $dailyPoWCount)), 0);
+    $TotalBlockSize[$day] = round((($dailyBlockSize / 1000000) + end($TotalBlockSize)), 2);
 }
 
 foreach($MintingMining as $day => $block) {
@@ -153,5 +160,7 @@ file_put_contents("$dataDir/mintingmining.json", json_encode(array_trim_end($Min
 file_put_contents("$dataDir/addrmintingmining.json", json_encode(array_trim_end($AddrMintingMining)));
 file_put_contents("$dataDir/annualinflation.json", json_encode(array_trim_end($InflationRate)));
 file_put_contents("$dataDir/powreward.json", json_encode(array_trim_end($PowReward)));
-file_put_contents("$dataDir/dailyfees.json", json_encode(array_trim_end($DailyFees)));
+file_put_contents("$dataDir/dailyfees.json", json_encode(array_trim_end($DailyFeesAverage)));
 file_put_contents("$dataDir/totalfees.json", json_encode(array_trim_end($TotalFees)));
+file_put_contents("$dataDir/dailyblocksize.json", json_encode(array_trim_end($DailyBlockSizeAverage)));
+file_put_contents("$dataDir/totalblocksize.json", json_encode(array_trim_end($TotalBlockSize)));
