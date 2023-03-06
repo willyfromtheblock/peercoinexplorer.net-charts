@@ -66,10 +66,10 @@ class Charts extends Component {
     const splitPath = window.location.pathname.split("/").splice(2);
     let { option, rangeSelected, selectedGroup } = this.state;
 
-    if (splitPath[1] >= 0 && splitPath[1] <= 5) {
+    if (splitPath[1] >= 0 && splitPath[1] <= 6) {
       rangeSelected = splitPath[1];
     } else {
-      rangeSelected = 5;
+      rangeSelected = 6;
     }
 
     Object.keys(options).forEach((x) => {
@@ -317,7 +317,7 @@ class Charts extends Component {
               text: "5y",
               events: {
                 click: () => {
-                  return _this.handleChartClick(6);
+                  return _this.handleChartClick(5);
                 },
               },
             },
@@ -326,7 +326,7 @@ class Charts extends Component {
               text: "All",
               events: {
                 click: () => {
-                  return _this.handleChartClick(5);
+                  return _this.handleChartClick(6);
                 },
               },
             },
