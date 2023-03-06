@@ -98,12 +98,8 @@ class Charts extends Component {
   };
 
   changeWindowURL = () => {
-    let {
-      option,
-      selectedGroup,
-      selectedChart,
-      rangeSelectedBuffer,
-    } = this.state;
+    let { option, selectedGroup, selectedChart, rangeSelectedBuffer } =
+      this.state;
     window.history.pushState(
       null,
       "",
@@ -312,6 +308,16 @@ class Charts extends Component {
               events: {
                 click: () => {
                   return _this.handleChartClick(4);
+                },
+              },
+            },
+            {
+              type: "year",
+              count: 5,
+              text: "5y",
+              events: {
+                click: () => {
+                  return _this.handleChartClick(6);
                 },
               },
             },
