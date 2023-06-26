@@ -80,6 +80,11 @@ export const charts = [
     label: "Total block size",
     ytitle: "accumulated block size per day (megabytes)",
   },
+  {
+    name: "staticreward",
+    label: "Static reward",
+    ytitle: "Static reward per day",
+  },
 ];
 
 export const options = [
