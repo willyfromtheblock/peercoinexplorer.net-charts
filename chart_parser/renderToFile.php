@@ -22,6 +22,8 @@ $DailyFeesAverage = array();
 $TotalFees = array();
 $DailyBlockSizeAverage = array();
 $TotalBlockSize = array();
+$StaticReward = array();
+$BlockTiming = array();
 
 foreach ($data as $index => $block) {
     $blockTime = $block["timeBlock"];
@@ -129,7 +131,7 @@ foreach ($MintingMining as $day => $block) {
 }
 
 foreach ($timing as $day => $timeDifference) {
-    $blockTiming[$day] = round(((array_sum($timeDifference) / count($timeDifference)) / 60), 2);
+    $BlockTiming[$day] = round(((array_sum($timeDifference) / count($timeDifference)) / 60), 2);
 
     //inflation rate
     $oneYearAgo = date("Y-m-d", strtotime($day) - 31556926);
@@ -138,6 +140,9 @@ foreach ($timing as $day => $timeDifference) {
         $InflationRate[$day]["mining"] = round((($coinSupplyNew[$day]["mining"] - $coinSupplyNew[$oneYearAgo]["mining"]) / $coinSupplyNew[$oneYearAgo]["total"]) * 100, 3);
         $InflationRate[$day]["minting"] = round((($coinSupplyNew[$day]["minting"] - $coinSupplyNew[$oneYearAgo]["minting"]) / $coinSupplyNew[$oneYearAgo]["total"]) * 100, 3);
     }
+
+    //static reward
+    $StaticReward[$day] = round(($coinSupplyNew[$day]["total"] * (0.0025 * (33 / (365 * 33 + 8)) * $BlockTiming[$day] / (24 * 6))), 2);
 }
 
 //add series
@@ -152,7 +157,7 @@ $InflationRate = $series2 + $InflationRate;
 file_put_contents("$dataDir/powdifficulty.json", json_encode(array_trim_end($PoWDifficulty)));
 file_put_contents("$dataDir/posdifficulty.json", json_encode(array_trim_end($PoSDifficulty)));
 file_put_contents("$dataDir/coinsupply.json", json_encode(array_trim_end($coinSupplyNew)));
-file_put_contents("$dataDir/blocktiming.json", json_encode(array_trim_end($blockTiming)));
+file_put_contents("$dataDir/blocktiming.json", json_encode(array_trim_end($BlockTiming)));
 file_put_contents("$dataDir/blockratio.json", json_encode(array_trim_end($blockRatio)));
 file_put_contents("$dataDir/realtx.json", json_encode(array_trim_end($realTX)));
 file_put_contents("$dataDir/realvalue.json", json_encode(array_trim_end($realVOUT)));
@@ -164,3 +169,4 @@ file_put_contents("$dataDir/dailyfees.json", json_encode(array_trim_end($DailyFe
 file_put_contents("$dataDir/totalfees.json", json_encode(array_trim_end($TotalFees)));
 file_put_contents("$dataDir/dailyblocksize.json", json_encode(array_trim_end($DailyBlockSizeAverage)));
 file_put_contents("$dataDir/totalblocksize.json", json_encode(array_trim_end($TotalBlockSize)));
+file_put_contents("$dataDir/staticreward.json", json_encode(array_trim_end($StaticReward)));
