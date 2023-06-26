@@ -59,9 +59,9 @@ foreach ($dailyBlocks as $day => $block) {
     $PoWAddressArray = array();
     $PoSAddressArray = array();
     $PowReward[$day] = 0;
-    $dailyFees = 0; 
+    $dailyFees = 0;
     $dailyBlockSize = 0;
-   
+
     if (array_key_exists("pow", $block)) {
         $dailyPoWCount = count($block["pow"]);
 
@@ -79,7 +79,7 @@ foreach ($dailyBlocks as $day => $block) {
         }
         $PoWDifficulty[$day] = $dailyPoWSum / $dailyPoWCount;
         $PowReward[$day] = round($dailyPoWMint / $dailyPoWCount, 2);
-    } 
+    }
     if (array_key_exists("pos", $block)) {
         $dailyPoSCount = count($block["pos"]);
 
@@ -102,7 +102,7 @@ foreach ($dailyBlocks as $day => $block) {
         } else {
             //no PoW blocks that day, remove 0 value and use last days value for PowReward
             array_pop($PowReward);
-            $PowReward[$day] = array_values(array_slice($PowReward, -1))[0]; 
+            $PowReward[$day] = array_values(array_slice($PowReward, -1))[0];
         }
     }
     $realTX[$day] = $dailyRealTX;
@@ -117,11 +117,11 @@ foreach ($dailyBlocks as $day => $block) {
     $TotalBlockSize[$day] = round((($dailyBlockSize / 1000000) + end($TotalBlockSize)), 2);
 }
 
-foreach($MintingMining as $day => $block) {
-    $oneDayAgo =  date("Y-m-d", strtotime($day) - 86400);
+foreach ($MintingMining as $day => $block) {
+    $oneDayAgo = date("Y-m-d", strtotime($day) - 86400);
     if (array_key_exists($oneDayAgo, $coinSupplyNew)) {
-        $coinSupplyNew[$day]["mining"] = $block["mining"] +  $coinSupplyNew[$oneDayAgo]["mining"];
-        $coinSupplyNew[$day]["minting"] = $block["minting"] +  $coinSupplyNew[$oneDayAgo]["minting"];
+        $coinSupplyNew[$day]["mining"] = $block["mining"] + $coinSupplyNew[$oneDayAgo]["mining"];
+        $coinSupplyNew[$day]["minting"] = $block["minting"] + $coinSupplyNew[$oneDayAgo]["minting"];
     } else {
         $coinSupplyNew[$day]["mining"] = $block["mining"];
         $coinSupplyNew[$day]["minting"] = $block["minting"];
@@ -132,7 +132,7 @@ foreach ($timing as $day => $timeDifference) {
     $blockTiming[$day] = round(((array_sum($timeDifference) / count($timeDifference)) / 60), 2);
 
     //inflation rate
-    $oneYearAgo =  date("Y-m-d", strtotime($day) - 31556926);
+    $oneYearAgo = date("Y-m-d", strtotime($day) - 31556926);
     if (array_key_exists($oneYearAgo, $coinSupplyNew)) {
         $InflationRate[$day]["total"] = round((($coinSupplyNew[$day]["total"] - $coinSupplyNew[$oneYearAgo]["total"]) / $coinSupplyNew[$oneYearAgo]["total"]) * 100, 3);
         $InflationRate[$day]["mining"] = round((($coinSupplyNew[$day]["mining"] - $coinSupplyNew[$oneYearAgo]["mining"]) / $coinSupplyNew[$oneYearAgo]["total"]) * 100, 3);
@@ -142,7 +142,7 @@ foreach ($timing as $day => $timeDifference) {
 
 //add series
 $series1 = array("series" => array("minting", "mining"));
-$series2 = array("series" => array("total", "mining", "minting")); 
+$series2 = array("series" => array("total", "mining", "minting"));
 $AddrMintingMining = $series1 + $AddrMintingMining;
 $MintingMining = $series1 + $MintingMining;
 $coinSupplyNew = $series2 + $coinSupplyNew;
