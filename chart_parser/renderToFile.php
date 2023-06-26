@@ -142,7 +142,7 @@ foreach ($timing as $day => $timeDifference) {
     }
 
     //static reward
-    $StaticReward[$day] = round(($coinSupplyNew[$day]["total"] * (0.0025 * (33 / (365 * 33 + 8)) * $BlockTiming[$day] / (24 * 60))), 2);
+    $StaticReward[$day] = round(($coinSupplyNew[$day]["total"] * (0.0025 * (33 / (365 * 33 + 8)) * 10 / (24 * 60))), 2);
 }
 
 //add series
