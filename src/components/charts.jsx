@@ -115,7 +115,9 @@ class Charts extends Component {
     this.setState({
       loading: true,
     });
-    const { data } = await http.get(`/chart_data/${name}.json`);
+    const { data } = await http.get(
+      `https://peercoinexplorer.net/chart_data/${name}.json`
+    );
 
     let array = [];
     let seriesOptions = [];

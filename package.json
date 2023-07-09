@@ -1,7 +1,7 @@
 {
   "name": "charts",
   "version": "0.1.0",
-  "homepage": "https://www.peercoinexplorer.net/charts/",
+  "homepage": "/",
   "private": true,
   "dependencies": {
     "@sentry/browser": "^6.12.0",
