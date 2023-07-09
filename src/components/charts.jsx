@@ -63,7 +63,7 @@ class Charts extends Component {
   };
 
   parseWindowUrl = () => {
-    const splitPath = window.location.pathname.split("/").splice(2);
+    const splitPath = window.location.pathname.split("/").splice(1);
     console.log(splitPath);
     console.log(window.location.pathname);
     let { option, rangeSelected, selectedGroup } = this.state;
