@@ -103,7 +103,7 @@ class Charts extends Component {
     window.history.pushState(
       null,
       "",
-      `/charts/${selectedChart}/${rangeSelectedBuffer}/${option}/${selectedGroup}`
+      `/${selectedChart}/${rangeSelectedBuffer}/${option}/${selectedGroup}`
     );
   };
 
