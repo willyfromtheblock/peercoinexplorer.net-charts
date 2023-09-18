@@ -149,7 +149,14 @@ foreach ($timing as $day => $timeDifference) {
     //SECURITY = (DIFF * 2**32 / (SUPPLY * maxDayWeight * BLOCK_INTERVAL_SECS)) * 100
     //maxDayWeight const 60
     //BLOCK_INTERVAL_SECS const 600
-    $SecurityParamter[$day] = round((($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600)) * 100, 2);
+
+    if (array_key_exists($day, $PoSDifficulty)) { //avoid division by zero
+        $SecurityParamter[$day] = round((($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600)) * 100, 2);
+    } else {
+    //no pos blocks that day
+        $SecurityParamter[$day] = 0;
+    }
+
 }
 
 //add series
