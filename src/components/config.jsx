@@ -85,6 +85,11 @@ export const charts = [
     label: "Static reward",
     ytitle: "Static reward per day",
   },
+  {
+    name: "securityparameter",
+    label: "Security Parameter",
+    ytitle: "Security Parameter in % per day",
+  },
 ];
 
 export const options = [
