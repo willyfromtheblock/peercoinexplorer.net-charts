@@ -24,6 +24,7 @@ $DailyBlockSizeAverage = array();
 $TotalBlockSize = array();
 $StaticReward = array();
 $BlockTiming = array();
+$SecurityParamter = array();
 
 foreach ($data as $index => $block) {
     $blockTime = $block["timeBlock"];
@@ -143,6 +144,12 @@ foreach ($timing as $day => $timeDifference) {
 
     //static reward
     $StaticReward[$day] = round(($coinSupplyNew[$day]["total"] * (0.0025 * (33 / (365 * 33 + 8)) * 10 / (24 * 60))), 2);
+
+    //security parameter
+    //SECURITY = (DIFF * 2**32 / (SUPPLY * maxDayWeight * BLOCK_INTERVAL_SECS)) * 100
+    //maxDayWeight const 60
+    //BLOCK_INTERVAL_SECS const 600
+    $SecurityParamter[$day] = round((($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600)) * 100, 2);
 }
 
 //add series
@@ -170,3 +177,4 @@ file_put_contents("$dataDir/totalfees.json", json_encode(array_trim_end($TotalFe
 file_put_contents("$dataDir/dailyblocksize.json", json_encode(array_trim_end($DailyBlockSizeAverage)));
 file_put_contents("$dataDir/totalblocksize.json", json_encode(array_trim_end($TotalBlockSize)));
 file_put_contents("$dataDir/staticreward.json", json_encode(array_trim_end($StaticReward)));
+file_put_contents("$dataDir/securityparameter.json", json_encode(array_trim_end($SecurityParamter)));
