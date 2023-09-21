@@ -10,9 +10,15 @@ function getData()
     }
     return ($resultArray);
 }
+
+function array_trim_end($array)
+{
+    array_pop($array);
+    return $array;
+}
  
 function saveArrayToJsonFile($fileName, $data) {
     global $dataDir;
     $filePath = "$dataDir/$fileName.json";
-    file_put_contents($filePath, json_encode(array_pop($data)));
+    file_put_contents($filePath, json_encode(array_trim_end($data)));
 }
