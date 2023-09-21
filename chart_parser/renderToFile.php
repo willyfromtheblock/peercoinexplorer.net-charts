@@ -169,20 +169,20 @@ $InflationRate = $series2 + $InflationRate;
 
 
 //remove last day, make json and write
-saveArrayToJsonFile($dataDir, "powdifficulty", $PoWDifficulty);
-saveArrayToJsonFile($dataDir, "posdifficulty", $PoSDifficulty);
-saveArrayToJsonFile($dataDir, "coinsupply", $coinSupplyNew);
-saveArrayToJsonFile($dataDir, "blocktiming", $BlockTiming);
-saveArrayToJsonFile($dataDir, "blockratio", $blockRatio);
-saveArrayToJsonFile($dataDir, "realtx", $realTX);
-saveArrayToJsonFile($dataDir, "realvalue", $realVOUT);
-saveArrayToJsonFile($dataDir, "mintingmining", $MintingMining);
-saveArrayToJsonFile($dataDir, "addrmintingmining", $AddrMintingMining);
-saveArrayToJsonFile($dataDir, "annualinflation", $InflationRate);
-saveArrayToJsonFile($dataDir, "powreward", $PowReward);
-saveArrayToJsonFile($dataDir, "dailyfees", $DailyFeesAverage);
-saveArrayToJsonFile($dataDir, "totalfees", $TotalFees);
-saveArrayToJsonFile($dataDir, "dailyblocksize", $DailyBlockSizeAverage);
-saveArrayToJsonFile($dataDir, "totalblocksize", $TotalBlockSize);
-saveArrayToJsonFile($dataDir, "staticreward", $StaticReward);
-saveArrayToJsonFile($dataDir, "securityparameter", $SecurityParamter);
+saveArrayToJsonFile("powdifficulty", $PoWDifficulty);
+saveArrayToJsonFile("posdifficulty", $PoSDifficulty);
+saveArrayToJsonFile("coinsupply", $coinSupplyNew);
+saveArrayToJsonFile("blocktiming", $BlockTiming);
+saveArrayToJsonFile("blockratio", $blockRatio);
+saveArrayToJsonFile("realtx", $realTX);
+saveArrayToJsonFile("realvalue", $realVOUT);
+saveArrayToJsonFile("mintingmining", $MintingMining);
+saveArrayToJsonFile("addrmintingmining", $AddrMintingMining);
+saveArrayToJsonFile("annualinflation", $InflationRate);
+saveArrayToJsonFile("powreward", $PowReward);
+saveArrayToJsonFile("dailyfees", $DailyFeesAverage);
+saveArrayToJsonFile("totalfees", $TotalFees);
+saveArrayToJsonFile("dailyblocksize", $DailyBlockSizeAverage);
+saveArrayToJsonFile("totalblocksize", $TotalBlockSize);
+saveArrayToJsonFile("staticreward", $StaticReward);
+saveArrayToJsonFile("securityparameter", $SecurityParamter);

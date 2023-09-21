@@ -11,7 +11,8 @@ function getData()
     return ($resultArray);
 }
  
-function saveArrayToJsonFile($dataDir, $fileName, $data) {
+function saveArrayToJsonFile($fileName, $data) {
+    global $dataDir;
     $filePath = "$dataDir/$fileName.json";
     file_put_contents($filePath, json_encode(array_pop($data)));
 }
