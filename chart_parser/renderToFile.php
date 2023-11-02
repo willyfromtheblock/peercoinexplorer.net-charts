@@ -153,7 +153,7 @@ foreach ($timing as $day => $timeDifference) {
 
     if (array_key_exists($day, $PoSDifficulty)) { //avoid division by zero
         $SecurityParamter[$day] = round((($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600)) * 100, 2);
-        $OptimalFraction[$day] = round(securityToOptimalFraction($SecurityParamter[$day]), 2);
+        $OptimalFraction[$day] = securityToOptimalFraction($SecurityParamter[$day]);
     } else {
         //no pos blocks that day
         $SecurityParamter[$day] = 0;
