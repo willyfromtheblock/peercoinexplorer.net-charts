@@ -90,6 +90,11 @@ export const charts = [
     label: "Security Parameter",
     ytitle: "Security Parameter in % per day",
   },
+  {
+    name: "optimalfraction",
+    label: "Optimal Fraction",
+    ytitle: "Optimal Fraction in PPC per day",
+  },
 ];
 
 export const options = [
