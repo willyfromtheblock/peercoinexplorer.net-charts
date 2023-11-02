@@ -151,6 +151,12 @@ foreach ($timing as $day => $timeDifference) {
     //maxDayWeight const 60
     //BLOCK_INTERVAL_SECS const 600
 
+    //cut off values before 1st Nov 2012 in SecurityParamater and OptimalFraction
+    $cutoffDate = strtotime("2012-11-01");
+    if (strtotime($day) < $cutoffDate) {
+        return;
+    }
+
     if (array_key_exists($day, $PoSDifficulty)) { //avoid division by zero
         $securityAsFraction = ($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600);
 
