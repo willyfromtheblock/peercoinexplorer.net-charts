@@ -152,8 +152,10 @@ foreach ($timing as $day => $timeDifference) {
     //BLOCK_INTERVAL_SECS const 600
 
     if (array_key_exists($day, $PoSDifficulty)) { //avoid division by zero
-        $SecurityParamter[$day] = round((($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600)) * 100, 2);
-        $OptimalFraction[$day] = securityToOptimalFraction($SecurityParamter[$day]);
+        $securityAsFraction = ($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600);
+        
+        $SecurityParamter[$day] = round($securityAsFraction * 100, 2);
+        $OptimalFraction[$day] = securityToOptimalFraction($securityAsFraction);
     } else {
         //no pos blocks that day
         $SecurityParamter[$day] = 0;
