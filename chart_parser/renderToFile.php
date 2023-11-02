@@ -152,8 +152,8 @@ foreach ($timing as $day => $timeDifference) {
     //BLOCK_INTERVAL_SECS const 600
 
     //cut off values before 1st Nov 2012 in SecurityParamater and OptimalFraction
-    $cutoffDate = strtotime("2012-11-01");
-    if (strtotime($day) < $cutoffDate) {
+    $cutoffDate = "2012-11-01";
+    if (strtotime($day) < strtotime($cutoffDate)) {
         return;
     }
 
