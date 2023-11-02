@@ -25,6 +25,7 @@ $TotalBlockSize = array();
 $StaticReward = array();
 $BlockTiming = array();
 $SecurityParamter = array();
+$OptimalFraction = array();
 
 foreach ($data as $index => $block) {
     $blockTime = $block["timeBlock"];
@@ -152,9 +153,11 @@ foreach ($timing as $day => $timeDifference) {
 
     if (array_key_exists($day, $PoSDifficulty)) { //avoid division by zero
         $SecurityParamter[$day] = round((($PoSDifficulty[$day] * pow(2, 32)) / ($coinSupplyNew[$day]["total"] * 60 * 600)) * 100, 2);
+        $OptimalFraction[$day] = round(securityToOptimalFraction($SecurityParamter[$day]), 2);
     } else {
-    //no pos blocks that day
+        //no pos blocks that day
         $SecurityParamter[$day] = 0;
+        $OptimalFraction[$day] = 0;
     }
 
 }
@@ -186,3 +189,4 @@ saveArrayToJsonFile("dailyblocksize", $DailyBlockSizeAverage);
 saveArrayToJsonFile("totalblocksize", $TotalBlockSize);
 saveArrayToJsonFile("staticreward", $StaticReward);
 saveArrayToJsonFile("securityparameter", $SecurityParamter);
+saveArrayToJsonFile("optimalfraction", $OptimalFraction);
