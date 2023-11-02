@@ -92,8 +92,8 @@ export const charts = [
   },
   {
     name: "optimalfraction",
-    label: "Optimal Fraction",
-    ytitle: "Optimal Fraction in PPC per day",
+    label: "Optimal Output Size",
+    ytitle: "Optimal Output Size per day (PPC)",
   },
 ];
 
