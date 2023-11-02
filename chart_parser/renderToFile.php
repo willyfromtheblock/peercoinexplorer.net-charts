@@ -154,7 +154,7 @@ foreach ($timing as $day => $timeDifference) {
     //cut off values before 1st Nov 2012 in SecurityParamater and OptimalFraction
     $cutoffDate = "2012-11-01";
     if (strtotime($day) < strtotime($cutoffDate)) {
-        return;
+        continue;
     }
 
     if (array_key_exists($day, $PoSDifficulty)) { //avoid division by zero
