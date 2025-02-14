@@ -1,0 +1,28 @@
+name: Check Updates
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Runs every day at midnight UTC
+
+jobs:
+  check_updates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Fetch JSON data
+        run: |
+          curl -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
+
+      - name: Check if the second-to-last day is included
+        run: |
+          TODAY=$(date -u +"%Y-%m-%d")
+          SECOND_LAST_DAY=$(date -u -d "$TODAY - 2 days" +"%Y-%m-%d")
+          if grep -q "$SECOND_LAST_DAY" optimalfraction.json; then
+            echo "The second-to-last day ($SECOND_LAST_DAY) is included in the JSON data."
+          else
+            echo "The second-to-last day ($SECOND_LAST_DAY) is NOT included in the JSON data."
+            exit 1
+          fi
