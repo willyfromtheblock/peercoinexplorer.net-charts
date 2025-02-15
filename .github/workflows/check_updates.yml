@@ -12,12 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Fetch JSON data
-        run: |
-          curl -H "Cache-Control: no-cache" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
-
       - name: Check if yesterday is included
         run: |
+          curl -H "Cache-Control: no-cache" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
           TODAY=$(date -u +"%Y-%m-%d")
           YESTERDAY=$(date -u -d "$TODAY - 1 day" +"%Y-%m-%d")
           if grep -q "$YESTERDAY" optimalfraction.json; then
