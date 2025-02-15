@@ -14,7 +14,7 @@ jobs:
 
       - name: Fetch JSON data
         run: |
-          curl -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
+          curl -H "Cache-Control: no-cache" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
 
       - name: Check if yesterday is included
         run: |
