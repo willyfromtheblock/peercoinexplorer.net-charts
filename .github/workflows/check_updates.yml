@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Check if yesterday is included
         run: |
           curl -H "Cache-Control: no-cache" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
+
+          jq empty optimalfraction.json || { echo "Invalid JSON"; exit 1; }
+
           TODAY=$(date -u +"%Y-%m-%d")
           YESTERDAY=$(date -u -d "$TODAY - 1 day" +"%Y-%m-%d")
           if grep -q "$YESTERDAY" optimalfraction.json; then
