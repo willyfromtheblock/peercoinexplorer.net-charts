@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Check if yesterday is included
         run: |
-          curl -H "Cache-Control: no-cache" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
+          curl -H "x-test: ${{secrets.BYPASS_HEADER}}" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
 
           jq empty optimalfraction.json || { echo "Invalid JSON"; exit 1; }
 
