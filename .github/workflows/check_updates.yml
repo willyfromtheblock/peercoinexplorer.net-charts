@@ -9,10 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Fetch JSON data
+        env:
+          BYPASS_HEADER: ${{ secrets.BYPASS_HEADER }}
+        run: |
+          curl -v -H "x-test: $BYPASS_HEADER" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
+
       - name: Check if yesterday is included
         run: |
-          curl -v -H "x-test: ${{ secrets.BYPASS_HEADER }}" -o optimalfraction.json https://charts-core.peercoinexplorer.net/optimalfraction.json
-
           jq empty optimalfraction.json || { echo "Invalid JSON"; exit 1; }
 
           TODAY=$(date -u +"%Y-%m-%d")
