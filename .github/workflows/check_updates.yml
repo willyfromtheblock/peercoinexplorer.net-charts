@@ -1,8 +1,9 @@
 name: Check Updates
 
 on:
-  schedule:
-    - cron: "0 20 * * *"
+  push:
+    branches:
+      - master
 
 jobs:
   check_updates:
