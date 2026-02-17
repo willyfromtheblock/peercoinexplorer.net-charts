@@ -21,7 +21,6 @@ const Footer = (props) => {
               alt="Coinerella"
               style={{ height: "1.5em", verticalAlign: "middle", marginRight: "0.3rem" }}
             />
-            www.coinerella.com
           </a>
         </p>
       </div>
