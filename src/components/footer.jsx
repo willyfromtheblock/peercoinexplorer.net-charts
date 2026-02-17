@@ -14,6 +14,16 @@ const Footer = (props) => {
             PM7jjBUPjzpkZy1UZtD7mvmHoXJ2BGvbx9
           </button>
         </p>
+        <p className="text-light" style={{ marginTop: "0.5rem" }}>
+          <a href="https://www.coinerella.com" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://fonts.peercoinexplorer.net/coinerella.png"
+              alt="Coinerella"
+              style={{ height: "1.5em", verticalAlign: "middle", marginRight: "0.3rem" }}
+            />
+            www.coinerella.com
+          </a>
+        </p>
       </div>
     </footer>
   );
