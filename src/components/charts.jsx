@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Loader from "react-loader-spinner";
+import { RevolvingDot } from "react-loader-spinner";
 import GitHubButton from "react-github-btn";
 import http from "../services/httpService";
 import Highcharts from "highcharts/highstock";
@@ -367,8 +367,7 @@ class Charts extends Component {
       <Fragment>
         {loading && (
           <div className="loader">
-            <Loader
-              type="RevolvingDot"
+            <RevolvingDot
               color="#3cb054"
               height="100"
               width="100"
